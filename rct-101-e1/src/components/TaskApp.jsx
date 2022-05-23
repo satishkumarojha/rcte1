@@ -10,6 +10,7 @@ const TaskApp = () => {
   // NOTE: do not delete `data-cy` key value pair
   const [items,setItems] = useState("");
   const [tasks,setTasks] = useState(data);
+  
   const handleChange = (e)=>{
     setItems(e.target.value);
    }
@@ -17,7 +18,7 @@ const TaskApp = () => {
      setTasks([...tasks,{
       "id": uuidv4(),
       "text": items,
-      "done": true,
+      "done": false,
       "count": 1
     }])
      console.log(tasks);
@@ -25,11 +26,12 @@ const TaskApp = () => {
    }
    const deleteTask = (id)=>{
      console.log(id);
+     setTasks(tasks.filter((tasks)=>tasks.text!=id));
    }
   return (
     <div data-cy="task-app" className={styles.taskApp}>
       {/* Header */}
-      <TaskHeader/>
+      <TaskHeader tasks ={tasks}/>
       {/* Add Task */}
       <AddTask handleChange={handleChange} submitTask={submitTask} values={items}/>
       {/* Tasks */}
